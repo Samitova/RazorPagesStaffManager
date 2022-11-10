@@ -7,10 +7,10 @@ namespace RazorPagesStaffManager.Services
 {
     public interface IRepository<T>
     {
-        int Add(T entity);
-        int AddRange(IList<T> entities);
-        int Update(T entity);
-        int Delete(T entity);
+        void Add(T entity);
+        void AddRange(IList<T> entities);
+        void Update(T entity);
+        void Delete(T entity);
         T GetOne(int? id);
         IList<T> GetAll();       
     }
