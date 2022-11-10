@@ -9,4 +9,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.27" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RazorPagesStaffManager.Models\RazorPagesStaffManager.Models.csproj" />
+    <ProjectReference Include="..\RazorPagesStaffManager.Services\RazorPagesStaffManager.Services.csproj" />
+  </ItemGroup>
+
 </Project>
