@@ -21,8 +21,8 @@
                         <img class="card-img-top imageThmbnail" src="@photoPath" asp-append-version="true"/>                        
                     </div>
 
-                    <div class="footer border-top text-center">
-                        <a href="#" class="btn btn-success m-1 buttonShadow">View</a>
+                    <div class="card-footer text-center">
+                        <a asp-page="/Employees/EmployeeDetails" asp-route-ID="@item.Id" class="btn btn-success m-1 buttonShadow">Details</a>
                         <a href="#" class="btn btn-primary m-1 buttonShadow">Edit</a>
                         <a href="#" class="btn btn-danger m-1 buttonShadow">Delete</a>
                     </div>

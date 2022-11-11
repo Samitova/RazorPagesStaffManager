@@ -118,18 +118,9 @@ body {
     box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.75);
 }
 
-.card {
-    border-radius: 45px 0 45px 0;
-}
 
 .card-body {
     border-radius: 0 0 45px 0;
-}
-
-.buttonShadow {
-    -webkit-box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.75);
-    -moz-box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.75);
-    box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.75);
 }
 
 .menuBg {
@@ -146,4 +137,9 @@ body {
 .containerBordered {
     border-right: 1px solid #dee2e6;
     border-left: 1px solid #dee2e6;
+}
+
+.cardTextLeftFloating {
+    text-align:left;    
+    padding-left:20px;
 }
