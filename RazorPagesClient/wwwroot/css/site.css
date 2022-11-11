@@ -143,3 +143,12 @@ body {
     text-align:left;    
     padding-left:20px;
 }
+
+.cardWraper {
+    height: 300px;
+    width: 150px;
+}
+
+.form-group {
+    font-size:20px;
+}

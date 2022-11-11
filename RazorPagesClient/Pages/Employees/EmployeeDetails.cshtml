@@ -2,7 +2,7 @@
 @model RazorPagesClient.Pages.Employees.EmployeeDetailsModel
 @{
     ViewData["Title"] = "Employee Details";
-    var photoPath = $"/images/{Model.Employee.PhotoPath ?? "noimage.png"}";
+    var photoPath = $"/images/avatars/{Model.Employee.PhotoPath ?? "noimage.png"}";
 }
 
 <div class="row justify-content-center m-3 ">
@@ -32,7 +32,7 @@
                 <div class="row">
                     <div class="col">
                         <a asp-page="/Employees" class="btn btn-success m-1 buttonShadow">Back</a>
-                        <a href="#" class="btn btn-primary m-1 buttonShadow">Edit</a>
+                        <a asp-page="/Employees/EditEmployee" asp-route-ID="@Model.Employee.Id" class="btn btn-primary m-1 buttonShadow">Edit</a>
                         <a href="#" class="btn btn-danger m-1 buttonShadow">Delete</a>
                     </div>
                 </div>

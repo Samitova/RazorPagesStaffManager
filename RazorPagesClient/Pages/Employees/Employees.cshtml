@@ -3,12 +3,20 @@
 @{
     ViewData["Title"] = "Employees";
 }
-<h2>Employees</h2>
+
+<h2 class="text-center">Employees</h2>
+
+@if (TempData["SM"] != null)
+{
+    <div class="alert alert-success text-center">
+        @TempData["SM"]
+    </div>
+}
 
 <div class="row">
     @foreach (var item in Model.Employees)
     {
-        var photoPath = $"/images/{item.PhotoPath ?? "noimage.png"}";
+        var photoPath = $"/images/avatars/{item.PhotoPath ?? "noimage.png"}";
 
         <div class="col-12 col-sm-6 col-lg-4">
             <div class="card-deck">
@@ -18,12 +26,12 @@
                     </div>
 
                     <div class="text-center card-body">
-                        <img class="card-img-top imageThmbnail" src="@photoPath" asp-append-version="true"/>                        
+                        <img class="card-img-top imageThumbnail" src="@photoPath" asp-append-version="true" />
                     </div>
 
                     <div class="card-footer text-center">
                         <a asp-page="/Employees/EmployeeDetails" asp-route-ID="@item.Id" class="btn btn-success m-1 buttonShadow">Details</a>
-                        <a href="#" class="btn btn-primary m-1 buttonShadow">Edit</a>
+                        <a asp-page="/Employees/EditEmployee" asp-route-ID="@item.Id" class="btn btn-primary m-1 buttonShadow">Edit</a>
                         <a href="#" class="btn btn-danger m-1 buttonShadow">Delete</a>
                     </div>
                 </div>
