@@ -46,14 +46,14 @@ namespace RazorPagesStaffManager.Services
                      {                         
                          Name = "Ben",
                          Email = "ben@gmail.com",
-                         PhotoPath = "avatar4.png",
+                         PhotoPath = "avatar5.png",
                          Department = Department.IT
                      },
                      new Employee
                      {                         
                          Name = "Rob",
                          Email = "rob@gmail.com",
-                         PhotoPath = "avatar3.png",
+                         PhotoPath = null,
                          Department = Department.IT
                      }
                 );
