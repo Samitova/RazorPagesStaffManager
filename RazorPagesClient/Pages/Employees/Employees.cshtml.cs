@@ -15,11 +15,12 @@ namespace RazorPagesClient.Pages.Employees
             _db = db;
         }
 
-
-        public IList<Employee> Employees { get; set; }
+        public IEnumerable<Employee> Employees { get; set; }          
         public void OnGet()
         {
             Employees = _db.EmployeesRepository.GetAll();
         }
+
+
     }
 }

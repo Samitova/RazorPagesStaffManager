@@ -2,9 +2,12 @@
 @model RazorPagesClient.Pages.Employees.EmployeesModel
 @{
     ViewData["Title"] = "Employees";
+    ViewData["ShowButtons"] = true;
 }
 
-<h2 class="text-center">Employees</h2>
+<vc:head-count department="@null"></vc:head-count>
+
+<h3 class="text-center">Employees</h3>
 
 @if (TempData["SM"] != null)
 {
@@ -16,26 +19,8 @@
  <div class="row">
     @foreach (var item in Model.Employees)
     {
-        var photoPath = $"/images/avatars/{item.PhotoPath ?? "noimage.png"}";
-
-        <div class="col-12 col-sm-6 col-lg-4">
-            <div class="card-deck">
-                <div class="card m-3 cardBoxShadow">
-                    <div class="card-header text-center cardHeaderStyle">
-                        <h3>@item.Name</h3>
-                    </div>
-
-                    <div class="text-center card-body">
-                        <img class="card-img-top imageThumbnail" src="@photoPath" asp-append-version="true" />
-                    </div>
-
-                    <div class="card-footer text-center">
-                        <a asp-page="/Employees/EmployeeDetails" asp-route-id="@item.Id" class="btn btn-success m-1 buttonShadow">Details</a>
-                        <a asp-page="/Employees/EditEmployee" asp-route-id="@item.Id" class="btn btn-primary m-1 buttonShadow">Edit</a>
-                        <a asp-page="/Employees/DeleteEmployee" asp-route-id="@item.Id" class="btn btn-danger m-1 buttonShadow">Delete</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+       <div class="col-12 col-sm-6 col-lg-4">
+            <partial name="_DisplayEmployeePartial" model="item" view-data="ViewData" />
+       </div>
     }
  </div>

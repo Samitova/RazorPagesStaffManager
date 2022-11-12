@@ -2,12 +2,17 @@
 @model RazorPagesClient.Pages.Employees.DeleteEmployeeModel
 @{
     ViewData["Title"] = "Delete Employee";
-    var photoPath = $"/images/avatars/{Model.Employee.PhotoPath ?? "noimage.png"}";
+    ViewData["ShowButtons"] = false;
 }
 
 <h1 class="text-center">Delete Confirmation</h1>
 
 <div class="alert alert-danger">
+    <div class="row">
+        <div class="col-12 col-md-6 col-xl-4 offset-sm-0 offset-md-3 offset-xl-4">
+            <partial name="_DisplayEmployeePartial" model="Model.Employee" view-data="ViewData" />
+        </div>
+    </div>
     <div class="row">
         <div class="col-12 col-md-6 col-xl-4 offset-sm-0 offset-md-3 offset-xl-4">
             <div class="text-center text-secondary">
