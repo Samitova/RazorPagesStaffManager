@@ -49,7 +49,7 @@ namespace RazorPagesClient.Pages.Employees
             {
                 if (Photo != null)
                 {
-                    if (Employee.PhotoPath != null)
+                    if (Employee.PhotoPath != null && !Employee.PhotoPath.Contains("noimage.png"))
                     {
                         string filePath = Path.Combine(_environment.WebRootPath, "images\\avatars", Employee.PhotoPath);
                         System.IO.File.Delete(filePath);
@@ -85,6 +85,6 @@ namespace RazorPagesClient.Pages.Employees
             }
 
             Employee = _db.EmployeesRepository.GetOne(id);
-        }
+        }      
     }
 }

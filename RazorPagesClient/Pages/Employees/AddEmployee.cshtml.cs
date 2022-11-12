@@ -29,10 +29,6 @@ namespace RazorPagesClient.Pages.Employees
 
         [BindProperty]
         public IFormFile Photo { get; set; }
-
-        [BindProperty]
-        public bool Notify { get; set; }
-
         public string Message { get; set; }
 
         /*___________________________________________________________________________________*/

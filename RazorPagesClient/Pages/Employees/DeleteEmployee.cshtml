@@ -1,0 +1,51 @@
+﻿@page "{id}"
+@model RazorPagesClient.Pages.Employees.DeleteEmployeeModel
+@{
+    ViewData["Title"] = "Delete Employee";
+    var photoPath = $"/images/avatars/{Model.Employee.PhotoPath ?? "noimage.png"}";
+}
+
+<form method="post" class="mt-3">    
+    <input type="hidden" asp-for="Employee.Id" />
+    <input type="hidden" asp-for="Employee.Name"/>
+    <input type="hidden" asp-for="Employee.Email" />
+    <input type="hidden" asp-for="Employee.Department"/>
+    <input type="hidden" asp-for="Employee.PhotoPath"/>
+    <input type="hidden" asp-for="Employee.Notify"/>
+    <div class="row justify-content-center m-3">
+        <div class="col col-lg-8">
+
+            <div class="card cardBoxShadow">
+                <div class="card-header text-center cardHeaderStyle">
+                    <h3>@Model.Employee.Name</h3>
+                </div>
+
+                <div class="text-center  card-body">
+                    <div class="row">
+                        <div class="col col-lg-9">
+                            <h4 class="cardTextLeftFloating">Employee ID: @Model.Employee.Id </h4>
+                            <h4 class="cardTextLeftFloating">Email: @Model.Employee.Email </h4>
+                            <h4 class="cardTextLeftFloating">Department: @Model.Employee.Department </h4>
+                    </div>
+                        <div class="col col-lg-3">
+                            <div style="border-right:1px solid rgba(0,0,0,.1);">
+                                <img class="card-img-top border border-primary imageThumbnail" style="background:#dle7ff" src="@photoPath" asp-append-version="true" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer text-center">
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-success buttonShadow">Delete</button>                            
+                            <a asp-page="/Employees/Employees" class="btn btn-danger m-1 buttonShadow">Back</a>                                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

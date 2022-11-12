@@ -1,4 +1,4 @@
-﻿@page
+﻿@page 
 @model RazorPagesClient.Pages.Employees.EmployeesModel
 @{
     ViewData["Title"] = "Employees";
@@ -30,12 +30,12 @@
                     </div>
 
                     <div class="card-footer text-center">
-                        <a asp-page="/Employees/EmployeeDetails" asp-route-ID="@item.Id" class="btn btn-success m-1 buttonShadow">Details</a>
-                        <a asp-page="/Employees/EditEmployee" asp-route-ID="@item.Id" class="btn btn-primary m-1 buttonShadow">Edit</a>
-                        <a href="#" class="btn btn-danger m-1 buttonShadow">Delete</a>
+                        <a asp-page="/Employees/EmployeeDetails" asp-route-id="@item.Id" class="btn btn-success m-1 buttonShadow">Details</a>
+                        <a asp-page="/Employees/EditEmployee" asp-route-id="@item.Id" class="btn btn-primary m-1 buttonShadow">Edit</a>
+                        <a asp-page="/Employees/DeleteEmployee" asp-route-id="@item.Id" class="btn btn-danger m-1 buttonShadow">Delete</a>
                     </div>
                 </div>
             </div>
         </div>
     }
-    </div>
+ </div>
