@@ -5,47 +5,30 @@
     var photoPath = $"/images/avatars/{Model.Employee.PhotoPath ?? "noimage.png"}";
 }
 
-<form method="post" class="mt-3">    
-    <input type="hidden" asp-for="Employee.Id" />
-    <input type="hidden" asp-for="Employee.Name"/>
-    <input type="hidden" asp-for="Employee.Email" />
-    <input type="hidden" asp-for="Employee.Department"/>
-    <input type="hidden" asp-for="Employee.PhotoPath"/>
-    <input type="hidden" asp-for="Employee.Notify"/>
-    <div class="row justify-content-center m-3">
-        <div class="col col-lg-8">
+<h1 class="text-center">Delete Confirmation</h1>
 
-            <div class="card cardBoxShadow">
-                <div class="card-header text-center cardHeaderStyle">
-                    <h3>@Model.Employee.Name</h3>
-                </div>
+<div class="alert alert-danger">
+    <div class="row">
+        <div class="col-12 col-md-6 col-xl-4 offset-sm-0 offset-md-3 offset-xl-4">
+            <div class="text-center text-secondary">
+                <h4>Employee ID: <span class="text-primary">@Model.Employee.Id</span></h4><hr/>
+                <h4>Employee E-mail: <span class="text-primary">@Model.Employee.Email</span></h4><hr />
+                <h4>Employee Department: <span class="text-primary">@Model.Employee.Department</span></h4><hr />
+            </div>            
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <h5>Are you shure want to delete this employee?</h5>
 
-                <div class="text-center  card-body">
-                    <div class="row">
-                        <div class="col col-lg-9">
-                            <h4 class="cardTextLeftFloating">Employee ID: @Model.Employee.Id </h4>
-                            <h4 class="cardTextLeftFloating">Email: @Model.Employee.Email </h4>
-                            <h4 class="cardTextLeftFloating">Department: @Model.Employee.Department </h4>
-                    </div>
-                        <div class="col col-lg-3">
-                            <div style="border-right:1px solid rgba(0,0,0,.1);">
-                                <img class="card-img-top border border-primary imageThumbnail" style="background:#dle7ff" src="@photoPath" asp-append-version="true" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-footer text-center">
-                    <div class="row">
-                        <div class="col">
-                            <button type="submit" class="btn btn-success buttonShadow">Delete</button>                            
-                            <a asp-page="/Employees/Employees" class="btn btn-danger m-1 buttonShadow">Back</a>                                              
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <form method="post">
+                <input type="hidden" asp-for="Employee.Id"/>
+                <input type="hidden" asp-for="Employee.PhotoPath" />
+                <button type="submit" class="btn btn-success buttonShadow">Yes</button>
+                <a asp-page="/Employees/Employees" class="btn btn-danger m-1 buttonShadow">No</a>
+            </form>
         </div>
     </div>
-</form>
+</div>
 
 
