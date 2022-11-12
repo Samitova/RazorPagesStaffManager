@@ -154,3 +154,9 @@ body {
 .form-group {
     font-size:20px;
 }
+
+.checkboxPosition {
+    position: relative;
+    left: -90px;
+    top: 10px;
+}

@@ -28,7 +28,7 @@ namespace RazorPagesClient.Pages.Employees
         [BindProperty]
         public IFormFile Photo { get; set; }
         
-        public string Message { get; set; }
+        //public string Message { get; set; }
 
 
         /*___________________________________________________________________________________*/
@@ -71,20 +71,6 @@ namespace RazorPagesClient.Pages.Employees
                 return RedirectToPage("/Employees/Employees");
             }
             return Page();
-        }
-
-        public void OnPostUpdateNotificationPreferances(int id)
-        {
-            if (Employee.Notify == true)
-            {
-                Message = "Thank you for turning on e-mail notification";
-            }
-            else
-            {
-                Message = "You have turned off e-mail notifications";
-            }
-
-            Employee = _db.EmployeesRepository.GetOne(id);
-        }      
+        }              
     }
 }
