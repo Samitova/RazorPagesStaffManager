@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorPagesStaffManager.Models;
 using RazorPagesStaffManager.Services.DataBase;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,13 +15,21 @@ namespace RazorPagesClient.Pages.Employees
         {
             _db = db;
         }
+                
+        public IEnumerable<Employee> Employees { get; set; }
 
-        public IEnumerable<Employee> Employees { get; set; }          
+        [BindProperty(SupportsGet=true)]
+        public string SearchTerm { get; set; }    
         public void OnGet()
         {
-            Employees = _db.EmployeesRepository.GetAll();
+            if (string.IsNullOrWhiteSpace(SearchTerm))
+            {
+                Employees = _db.EmployeesRepository.GetAll();
+            }
+            else
+            { 
+                Employees = _db.EmployeesRepository.GetAll(filter: x => x.Name.ToLower().Contains(SearchTerm.ToLower()) || x.Email.ToLower().Contains(SearchTerm.ToLower()));
+            }            
         }
-
-
     }
 }

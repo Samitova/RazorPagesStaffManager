@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -12,6 +13,7 @@ namespace RazorPagesStaffManager.Services.DataBase
         void Update(T entity);
         void Delete(T entity);
         T GetOne(int? id);
-        IList<T> GetAll();
+        List<T> GetAll(Expression<Func<T, bool>> filter,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, string includeProperties);
     }
 }
