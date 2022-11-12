@@ -9,9 +9,9 @@
     <div class="row text-center notifyBlock">
         <div class="col form-check">
             <h1>Notification Preferance</h1>
-            <input asp-for="Notify" class="form-check-input"/>
-            <lable asp-for="Notify" class="form-check-label">
-                Receive email notification when my profile change
+            <input asp-for="Employee.Notify" class="form-check-input"/>
+            <lable asp-for="Employee.Notify" class="form-check-label">
+                Receive email notification when profile is changed
             </lable><br/>
             <button type="submit" class="btn btn-primary text-center p-2"> Update Notification Preference</button>
 
@@ -24,6 +24,8 @@
         </div>
     </div>
 </form><hr/>
+
+<div  asp-validation-summary ="ModelOnly" class="text-danger text-center"></div>
 
 <form method="post" asp-page-handler="OnPost" enctype="multipart/form-data" class="mt-3">    
     <input type="hidden" asp-for="Employee.Id" />

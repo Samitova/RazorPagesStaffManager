@@ -1,27 +1,28 @@
 ﻿using RazorPagesStaffManager.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
-namespace RazorPagesStaffManager.Services
+namespace RazorPagesStaffManager.Services.DataBase
 {
     public class DbUnitOfWork : IDisposable
     {
         private ApplicationContext _context;
         public DbUnitOfWork(ApplicationContext context)
         {
-            _context = context; 
+            _context = context;
         }
-        
+
         private BaseRepository<Employee> _employeesRepository;
 
         public BaseRepository<Employee> EmployeesRepository
         {
             get
             {
-                if (this._employeesRepository == null)
+                if (_employeesRepository == null)
                 {
-                    this._employeesRepository = new BaseRepository<Employee>(_context);
+                    _employeesRepository = new BaseRepository<Employee>(_context);
                 }
                 return _employeesRepository;
             }
@@ -36,14 +37,14 @@ namespace RazorPagesStaffManager.Services
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     _context.Dispose();
                 }
             }
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()
@@ -51,5 +52,6 @@ namespace RazorPagesStaffManager.Services
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
     }
 }

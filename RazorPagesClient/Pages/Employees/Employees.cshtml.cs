@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorPagesStaffManager.Models;
-using RazorPagesStaffManager.Services;
+using RazorPagesStaffManager.Services.DataBase;
 using System.Collections;
 using System.Collections.Generic;
 

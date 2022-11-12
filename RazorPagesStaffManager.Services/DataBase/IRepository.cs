@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace RazorPagesStaffManager.Services
+namespace RazorPagesStaffManager.Services.DataBase
 {
     public interface IRepository<T>
     {
@@ -12,6 +12,6 @@ namespace RazorPagesStaffManager.Services
         void Update(T entity);
         void Delete(T entity);
         T GetOne(int? id);
-        IList<T> GetAll();       
+        IList<T> GetAll();
     }
 }

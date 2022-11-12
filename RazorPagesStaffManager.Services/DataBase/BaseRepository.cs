@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Linq;
 using System.Text;
 
-namespace RazorPagesStaffManager.Services
+namespace RazorPagesStaffManager.Services.DataBase
 {
     public class BaseRepository<T> : IRepository<T> where T : class
     {
@@ -15,22 +15,22 @@ namespace RazorPagesStaffManager.Services
         public BaseRepository(ApplicationContext context)
         {
             _context = context;
-            _table = _context.Set<T>() ;
+            _table = _context.Set<T>();
         }
 
         public void Add(T entity)
         {
-            _table.Add(entity);            
+            _table.Add(entity);
         }
         public void AddRange(IList<T> entities)
         {
-            _table.AddRange(entities);            
+            _table.AddRange(entities);
         }
 
         public void Delete(int id)
         {
             T entityToDelete = _table.Find(id);
-            Delete(entityToDelete);            
+            Delete(entityToDelete);
         }
         public void Delete(T entity)
         {
@@ -38,7 +38,7 @@ namespace RazorPagesStaffManager.Services
             {
                 _table.Attach(entity);
             }
-            _table.Remove(entity);           
+            _table.Remove(entity);
         }
 
         public IList<T> GetAll()
@@ -54,8 +54,8 @@ namespace RazorPagesStaffManager.Services
         public void Update(T entity)
         {
             _table.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;            
+            _context.Entry(entity).State = EntityState.Modified;
         }
-                
+
     }
 }

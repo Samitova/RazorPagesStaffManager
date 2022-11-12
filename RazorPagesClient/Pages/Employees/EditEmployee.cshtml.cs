@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorPagesStaffManager.Models;
-using RazorPagesStaffManager.Services;
+using RazorPagesStaffManager.Services.DataBase;
+using RazorPagesStaffManager.Services.FileServices;
 using System;
 using System.IO;
 
@@ -12,23 +13,21 @@ namespace RazorPagesClient.Pages.Employees
     public class EditEmployeeModel : PageModel
     {
         private readonly DbUnitOfWork _db;
-        private readonly IWebHostEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;        
         public EditEmployeeModel(DbUnitOfWork db, IWebHostEnvironment environment)
         {
             _db = db;
-            _environment = environment;
+            _environment = environment;            
         }
 
         /*___________________________________________________________________________________*/
 
+        [BindProperty]
         public Employee Employee { get; set; }
 
         [BindProperty]
         public IFormFile Photo { get; set; }
-
-        [BindProperty]
-        public bool Notify { get; set; }
-
+        
         public string Message { get; set; }
 
 
@@ -42,37 +41,41 @@ namespace RazorPagesClient.Pages.Employees
                 return RedirectToPage("/NotFound");
             }
             return Page();
-
         }
 
-        public IActionResult OnPost(Employee employee)
+        public IActionResult OnPost()
         {
-            if (Photo != null)
+            if (ModelState.IsValid)
             {
-                if (employee.PhotoPath != null) 
+                if (Photo != null)
                 {
-                    string filePath = Path.Combine(_environment.WebRootPath, "images\\avatars", employee.PhotoPath);
-                    System.IO.File.Delete(filePath);
+                    if (Employee.PhotoPath != null)
+                    {
+                        string filePath = Path.Combine(_environment.WebRootPath, "images\\avatars", Employee.PhotoPath);
+                        System.IO.File.Delete(filePath);
+                    }
+                    string uploadsFolder = Path.Combine(_environment.WebRootPath, "images\\avatars");
+                    Employee.PhotoPath = ImageService.ProcessUploadedPhoto(Photo, uploadsFolder);
                 }
-                employee.PhotoPath = ProcessUploadedPhoto();
+                _db.EmployeesRepository.Update(Employee);
+                try
+                {
+                    _db.Save();
+                }
+                catch (System.Exception ex)
+                {
+                    ModelState.AddModelError("", $"The record wasn`t updated. {ex.Message}");
+                }
+                TempData["SM"] = $"Employee with id: {Employee.Id} has been edited successful";
+
+                return RedirectToPage("/Employees/Employees");
             }
-            _db.EmployeesRepository.Update(employee);
-            try
-            {
-                _db.Save();
-            }
-            catch (System.Exception ex)
-            {
-                ModelState.AddModelError("", $"The record wasn`t updated. {ex.Message}");
-            }
-            TempData["SM"] = $"Employee with id: {employee.Id} has been edited successful";
-            
-            return RedirectToPage("/Employees/Employees");  
+            return Page();
         }
 
         public void OnPostUpdateNotificationPreferances(int id)
         {
-            if (Notify == true)
+            if (Employee.Notify == true)
             {
                 Message = "Thank you for turning on e-mail notification";
             }
@@ -82,23 +85,6 @@ namespace RazorPagesClient.Pages.Employees
             }
 
             Employee = _db.EmployeesRepository.GetOne(id);
-        }
-
-        private string ProcessUploadedPhoto()
-        {
-            string unicPhotoName = null;
-            if (Photo != null)
-            {
-                string uploadsFolder = Path.Combine(_environment.WebRootPath, "images\\avatars");
-                unicPhotoName = Guid.NewGuid().ToString() + "_" + Photo.FileName;
-                string filePath = Path.Combine(uploadsFolder, unicPhotoName);
-
-                using (var fs = new FileStream(filePath, FileMode.Create))
-                {
-                    Photo.CopyTo(fs);
-                }
-            }
-            return unicPhotoName;
         }
     }
 }
