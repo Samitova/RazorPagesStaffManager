@@ -26,12 +26,7 @@ namespace RazorPagesStaffManager.Services.DataBase
                 }
                 return _employeesRepository;
             }
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
+        }     
 
         private bool disposed = false;
 

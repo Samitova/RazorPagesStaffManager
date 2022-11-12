@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RazorPagesStaffManager.Services.DataBase
 {
-    public class BaseRepository<T> : IRepository<T> where T : class
+    public class BaseRepository<T> : IDisposable, IRepository<T> where T : class
     {
         private readonly DbSet<T> _table;
         private readonly ApplicationContext _context;
@@ -21,16 +21,19 @@ namespace RazorPagesStaffManager.Services.DataBase
         public void Add(T entity)
         {
             _table.Add(entity);
+            SaveChanges();
         }
         public void AddRange(IList<T> entities)
         {
             _table.AddRange(entities);
+            SaveChanges();
         }
 
         public void Delete(int id)
         {
             T entityToDelete = _table.Find(id);
             Delete(entityToDelete);
+            SaveChanges();
         }
         public void Delete(T entity)
         {
@@ -39,6 +42,7 @@ namespace RazorPagesStaffManager.Services.DataBase
                 _table.Attach(entity);
             }
             _table.Remove(entity);
+            SaveChanges();
         }
 
         public virtual List<T> GetAll(Expression<Func<T, bool>> filter = null,
@@ -67,7 +71,7 @@ namespace RazorPagesStaffManager.Services.DataBase
             }
         }
 
-        public T GetOne(int? id)
+        public T GetOne(int id)
         {
             return _table.Find(id);
         }
@@ -76,7 +80,49 @@ namespace RazorPagesStaffManager.Services.DataBase
         {
             _table.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            SaveChanges();
+        }
+
+        internal void SaveChanges()
+        {
+            try
+            {
+                 _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                throw;
+            }
+            catch (DbUpdateException ex)
+            {
+                throw;
+            }         
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
     }
 }
+

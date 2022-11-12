@@ -28,9 +28,6 @@ namespace RazorPagesClient.Pages.Employees
         [BindProperty]
         public IFormFile Photo { get; set; }
         
-        //public string Message { get; set; }
-
-
         /*___________________________________________________________________________________*/
         public IActionResult OnGet(int id)
         {
@@ -57,10 +54,10 @@ namespace RazorPagesClient.Pages.Employees
                     string uploadsFolder = Path.Combine(_environment.WebRootPath, "images\\avatars");
                     Employee.PhotoPath = ImageService.ProcessUploadedPhoto(Photo, uploadsFolder);
                 }
-                _db.EmployeesRepository.Update(Employee);
+               
                 try
                 {
-                    _db.Save();
+                     _db.EmployeesRepository.Update(Employee);
                 }
                 catch (System.Exception ex)
                 {

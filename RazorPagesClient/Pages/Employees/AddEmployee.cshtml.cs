@@ -46,11 +46,10 @@ namespace RazorPagesClient.Pages.Employees
                     string uploadsFolder = Path.Combine(_environment.WebRootPath, "images\\avatars");
                     Employee.PhotoPath = ImageService.ProcessUploadedPhoto(Photo, uploadsFolder);
                 }
-
-                _db.EmployeesRepository.Add(Employee);
+                
                 try
                 {
-                    _db.Save();
+                   _db.EmployeesRepository.Add(Employee);
                 }
                 catch (System.Exception ex)
                 {

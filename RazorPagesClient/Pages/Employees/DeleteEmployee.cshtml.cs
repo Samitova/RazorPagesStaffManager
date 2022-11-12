@@ -42,8 +42,7 @@ namespace RazorPagesClient.Pages.Employees
             string filePath = Path.Combine(_environment.WebRootPath, "images\\avatars", Employee.PhotoPath);
             try
             {  
-                _db.EmployeesRepository.Delete(Employee.Id);
-                _db.Save();
+                _db.EmployeesRepository.Delete(Employee.Id);                
             }
             catch (System.Exception ex)
             {

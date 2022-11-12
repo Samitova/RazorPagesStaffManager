@@ -12,7 +12,8 @@ namespace RazorPagesStaffManager.Services.DataBase
         void AddRange(IList<T> entities);
         void Update(T entity);
         void Delete(T entity);
-        T GetOne(int? id);
+        void Delete(int id);
+        T GetOne(int id);
         List<T> GetAll(Expression<Func<T, bool>> filter,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, string includeProperties);
     }
