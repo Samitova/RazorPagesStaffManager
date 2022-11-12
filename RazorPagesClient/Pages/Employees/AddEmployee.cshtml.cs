@@ -10,14 +10,16 @@ using System.IO;
 
 namespace RazorPagesClient.Pages.Employees
 {
-    public class EditEmployeeModel : PageModel
+    public class AddEmployeeModel : PageModel
     {
+
+
         private readonly DbUnitOfWork _db;
-        private readonly IWebHostEnvironment _environment;        
-        public EditEmployeeModel(DbUnitOfWork db, IWebHostEnvironment environment)
+        private readonly IWebHostEnvironment _environment;
+        public AddEmployeeModel(DbUnitOfWork db, IWebHostEnvironment environment)
         {
             _db = db;
-            _environment = environment;            
+            _environment = environment;
         }
 
         /*___________________________________________________________________________________*/
@@ -27,20 +29,16 @@ namespace RazorPagesClient.Pages.Employees
 
         [BindProperty]
         public IFormFile Photo { get; set; }
-        
+
+        [BindProperty]
+        public bool Notify { get; set; }
+
         public string Message { get; set; }
 
-
         /*___________________________________________________________________________________*/
-        public IActionResult OnGet(int id)
+        public void OnGet()
         {
-            Employee = _db.EmployeesRepository.GetOne(id);
-
-            if (Employee == null)
-            {
-                return RedirectToPage("/NotFound");
-            }
-            return Page();
+            
         }
 
         public IActionResult OnPost()
@@ -49,15 +47,11 @@ namespace RazorPagesClient.Pages.Employees
             {
                 if (Photo != null)
                 {
-                    if (Employee.PhotoPath != null)
-                    {
-                        string filePath = Path.Combine(_environment.WebRootPath, "images\\avatars", Employee.PhotoPath);
-                        System.IO.File.Delete(filePath);
-                    }
                     string uploadsFolder = Path.Combine(_environment.WebRootPath, "images\\avatars");
                     Employee.PhotoPath = ImageService.ProcessUploadedPhoto(Photo, uploadsFolder);
                 }
-                _db.EmployeesRepository.Update(Employee);
+
+                _db.EmployeesRepository.Add(Employee);
                 try
                 {
                     _db.Save();
@@ -66,25 +60,11 @@ namespace RazorPagesClient.Pages.Employees
                 {
                     ModelState.AddModelError("", $"The record wasn`t updated. {ex.Message}");
                 }
-                TempData["SM"] = $"Employee with id: {Employee.Id} was edited successfully";
+                TempData["SM"] = $"Employee with id: {Employee.Id} was added successfully";
 
                 return RedirectToPage("/Employees/Employees");
             }
             return Page();
-        }
-
-        public void OnPostUpdateNotificationPreferances(int id)
-        {
-            if (Employee.Notify == true)
-            {
-                Message = "Thank you for turning on e-mail notification";
-            }
-            else
-            {
-                Message = "You have turned off e-mail notifications";
-            }
-
-            Employee = _db.EmployeesRepository.GetOne(id);
-        }
+        }     
     }
 }

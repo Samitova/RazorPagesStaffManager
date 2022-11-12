@@ -1,0 +1,96 @@
+﻿@page
+@model RazorPagesClient.Pages.Employees.AddEmployeeModel
+@{
+    ViewData["Title"] = "Add Employee";
+    var photoPath = $"/images/avatars/{Model.Employee?.PhotoPath ?? "noimage.png"}";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger text-center"></div>
+
+<form method="post" asp-page="OnPost" enctype="multipart/form-data" class="mt-3">   
+    <input type="hidden" asp-for="Employee.PhotoPath" value="noimage.png" />
+    <div class="row justify-content-center m-3">
+        <div class="col col-lg-8">
+            <div class="card cardBoxShadow">
+                <div class="card-header cardHeaderStyle text-center">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h4>New Employee</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body cardBodyStyle text-center">
+                    <div class="row">
+                        <div class="col col-lg-9">
+
+                            <div class="form-group row">
+                                <label asp-for="Employee.Name" class="col col-lg-4 col-form-label text-right">Name:</label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Employee.Name" class="form-control mr-2" />
+                                    <span asp-validation-for="Employee.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Employee.Email" class="col col-lg-4 col-form-label text-right">E-mail:</label>
+                                <div class="col-12 col-lg-6">
+                                    <input asp-for="Employee.Email" class="form-control mr-2" />
+                                    <span asp-validation-for="Employee.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Employee.Department" class="col col-lg-4 col-form-label text-right">Department:</label>
+                                <div class="col-12 col-lg-6">
+
+                                    <select asp-for="Employee.Department" class="custom-select mr-2" asp-items="Html.GetEnumSelectList<Department>()">
+
+                                        <option value="">Please Select</option>
+                                    </select>
+                                    <span asp-validation-for="Employee.Department" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label asp-for="Employee.Notify" class="col col-lg-4 col-form-label text-right">Notify on data changing:</label>
+                                <div class="col-12 col-lg-6">
+                                    <input type="checkbox" asp-for="Employee.Notify" class="form-control mr-2" />                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-lg-3">
+                            <div style="border-right:1px solid rgba(0,0,0,.1);">
+                                <img class="card-img-top border border-primary imageThumbnail" style="background:#dle7ff" src="@photoPath" asp-append-version="true" />
+                                <div class="custom-file">
+                                    <input asp-for="Photo" class="custom-file-input form-control" />
+                                    <lable class="custom-file-label text-left">Click here </lable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-success buttonShadow">Add Employee</button>
+                            <a asp-page="/Pages/Index" class="btn btn-danger buttonShadow">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts
+        {
+        <script>
+            $(document).ready(function () {
+                $('.custom-file-input').on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).next('.custom-file-label').html(fileName);
+                });
+            });
+        </script>
+    }
+
+    </form>
