@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RazorPagesStaffManager.Models;
 using RazorPagesStaffManager.Services.DataBase;
 
 namespace RazorPagesClient.Pages.Employees
@@ -11,8 +12,13 @@ namespace RazorPagesClient.Pages.Employees
         {
             _db = db;
         }
+
+        [BindProperty (SupportsGet =true)]
+        public Employee Employee { get; set; }
+
         public void OnGet()
         {
+
         }
     }
 }

@@ -160,3 +160,7 @@ body {
     left: -90px;
     top: 10px;
 }
+
+.rightAlignButton {
+    float: right;
+}

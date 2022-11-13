@@ -19,7 +19,10 @@ namespace RazorPagesClient.Pages.Employees
         public IEnumerable<Employee> Employees { get; set; }
 
         [BindProperty(SupportsGet=true)]
-        public string SearchTerm { get; set; }    
+        public string SearchTerm { get; set; }
+
+        [BindProperty]
+        public Department? Department { get; set; }
         public void OnGet()
         {
             if (string.IsNullOrWhiteSpace(SearchTerm))
@@ -30,6 +33,30 @@ namespace RazorPagesClient.Pages.Employees
             { 
                 Employees = _db.EmployeesRepository.GetAll(filter: x => x.Name.ToLower().Contains(SearchTerm.ToLower()) || x.Email.ToLower().Contains(SearchTerm.ToLower()));
             }            
+        }
+
+        public void OnPost()
+        {
+            if (Department == null)
+            {
+                Employees = _db.EmployeesRepository.GetAll();
+            }
+            else
+            {
+                Employees = _db.EmployeesRepository.GetAll(filter: x => x.Department == Department);
+            }
+        }
+
+        public void OnGetFilterDepartment()
+        {
+            if (Department == null)
+            {
+                Employees = _db.EmployeesRepository.GetAll();
+            }
+            else
+            {
+                Employees = _db.EmployeesRepository.GetAll(filter: x => x.Department == Department);
+            }
         }
     }
 }
