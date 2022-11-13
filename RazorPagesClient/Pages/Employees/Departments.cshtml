@@ -1,0 +1,24 @@
+﻿@page
+@model RazorPagesClient.Pages.Employees.DepartmentsModel
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<h3 class="text-center mb-3">Departments</h3>
+
+<div class="container">
+    <div class="row justify-content-center m-3">
+        <div class="col col-lg-8">
+            <vc:head-count department="@null"></vc:head-count>
+        </div>
+    </div>
+
+    <div class="row justify-content-center m-3">  
+        
+        <div class="col col-lg-8">     
+            <a asp-page="/Index" class="btn btn-danger m-1 buttonShadow">Back</a>
+        </div>
+    </div>
+</div>
+
+
